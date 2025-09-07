@@ -1,0 +1,222 @@
+
+\documentclass[aspectratio=169]{beamer}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{mathtools, amsmath, amssymb}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{hyperref}
+
+\usetheme{Madrid}
+\usecolortheme{seahorse}
+
+\title{Divide y Vencerás: Cuatro Problemas Clásicos}
+\subtitle{Moda de un vector, Multiplicación de enteros grandes, Multiplicación de matrices, y Subsecuencia de suma máxima}
+\author{Preparado por ChatGPT}
+\date{\today}
+
+\lstdefinestyle{pseudocode}{
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  frame=single,
+  columns=fullflexible
+}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+% ==================================================
+\section{Moda de un vector}
+\begin{frame}{Planteamiento}
+Dado un vector $A$ de $n$ elementos (no necesariamente ordenado), hallar la \textbf{moda}: el valor con mayor frecuencia.\\[1ex]
+\textbf{Restricción:} Usar el paradigma \emph{divide y vencerás}.
+\end{frame}
+
+\begin{frame}{Idea Divide y Vencerás}
+\begin{itemize}
+  \item Dividir $A$ en dos mitades $A_L$ y $A_R$.
+  \item Resolver recursivamente obteniendo \emph{mapas de frecuencias} $F_L$ y $F_R$.
+  \item Combinar: fusionar los mapas sumando frecuencias clave a clave.
+  \item La moda global se obtiene como $\arg\max_x F[x]$ del mapa fusionado.
+\end{itemize}
+\textbf{Nota:} La moda global \emph{no} siempre es la moda de una mitad; por ello se fusionan frecuencias completas.
+\end{frame}
+
+\begin{frame}{Pseudocódigo}
+\begin{algorithm}[H]
+\caption{Moda\_DyV($A$)}
+\begin{algorithmic}[1]
+\If{$|A| \le k$} \Comment{caso base pequeño}
+  \State \Return mapa de frecuencias directo
+\EndIf
+\State dividir $A$ en $A_L, A_R$
+\State $F_L \gets$ Moda\_DyV($A_L$); \quad $F_R \gets$ Moda\_DyV($A_R$)
+\State $F \gets$ mapa vacío
+\ForAll{$x$ en claves($F_L$)} $F[x] \gets F[x] + F_L[x]$
+\EndFor
+\ForAll{$x$ en claves($F_R$)} $F[x] \gets F[x] + F_R[x]$
+\EndFor
+\State \Return $F$ \Comment{el cliente toma $\arg\max_x F[x]$}
+\end{algorithmic}
+\end{algorithm}
+\end{frame}
+
+\begin{frame}{Complejidad (paso a paso)}
+Sea $T(n)$ el costo al procesar $n$ elementos. La fusión es lineal.\\[1ex]
+Recurrencia:
+\[ T(n) = 2\,T(n/2) + c\,n, \quad T(k)=\Theta(k)\]
+Por el Teorema Maestro (caso 2): $a{=}2, b{=}2, f(n){=}\Theta(n)$.\\
+$n^{\log_b a} = n$. Entonces $T(n) = \Theta(n\log n)$.\\[1ex]
+\textbf{Espacio:} profundidad $\log n$, más mapas parciales $\Rightarrow$ $\mathcal{O}(n)$ adicional.
+\end{frame}
+
+% ==================================================
+\section{Multiplicación de enteros grandes (Karatsuba)}
+\begin{frame}{Planteamiento}
+Multiplicar dos enteros no negativos $X$ y $Y$ de $n$ dígitos (en base 10) usando un algoritmo de \emph{divide y vencerás}.
+\end{frame}
+
+\begin{frame}{Idea (Karatsuba)}
+Escribir $X = x_1\cdot 10^m + x_0$, $Y = y_1\cdot 10^m + y_0$ con $m \approx n/2$.\\
+Producto clásico requiere 4 productos de tamaño $m$. Karatsuba reduce a 3:
+\begin{align*}
+z_0 &= x_0 y_0\\
+z_2 &= x_1 y_1\\
+z_1 &= (x_1{+}x_0)(y_1{+}y_0) - z_2 - z_0\\[0.5ex]
+XY &= z_2\cdot 10^{2m} + z_1 \cdot 10^m + z_0
+\end{align*}
+\end{frame}
+
+\begin{frame}{Pseudocódigo}
+\begin{algorithm}[H]
+\caption{Karatsuba($X, Y$)}
+\begin{algorithmic}[1]
+\If{$X < 10$ \textbf{or} $Y < 10$}
+  \State \Return $X \cdot Y$
+\EndIf
+\State $m \gets \lfloor \max(\text{dígitos}(X), \text{dígitos}(Y))/2 \rfloor$
+\State dividir $X$ en $(x_1, x_0)$ y $Y$ en $(y_1,y_0)$ por $10^m$
+\State $z_0 \gets$ Karatsuba($x_0, y_0$)
+\State $z_2 \gets$ Karatsuba($x_1, y_1$)
+\State $z_1 \gets$ Karatsuba($x_1{+}x_0, y_1{+}y_0$) $- z_2 - z_0$
+\State \Return $z_2\cdot 10^{2m} + z_1\cdot 10^m + z_0$
+\end{algorithmic}
+\end{algorithm}
+\end{frame}
+
+\begin{frame}{Complejidad (paso a paso)}
+Recurrencia:
+\[ T(n)=3\,T(n/2) + c\,n \]
+\begin{itemize}
+  \item Árbol de recursión: niveles $0.. \log_2 n$; en nivel $i$ hay $3^i$ subproblemas de tamaño $n/2^i$ con costo lineal de combinación $\Theta(n/2^i)$ cada uno $\Rightarrow$ costo por nivel $\Theta\!\left(3^i \cdot n/2^i\right)=\Theta(n(3/2)^i)$. 
+  \item El último nivel domina: $i=\log_2 n \Rightarrow \Theta\!\left(n^{\log_2 3}\right)$.
+\end{itemize}
+Por Teorema Maestro (caso 1.5): $T(n)=\Theta\!\left(n^{\log_2 3}\right)\approx \Theta(n^{1.585})$.
+\end{frame}
+
+% ==================================================
+\section{Multiplicación de matrices (Strassen)}
+\begin{frame}{Planteamiento}
+Multiplicar dos matrices cuadradas $A$ y $B$ de tamaño $n{\times}n$ con $n$ potencia de $2$, usando \emph{divide y vencerás}.
+\end{frame}
+
+\begin{frame}{Idea (Strassen)}
+Dividir cada matriz en 4 subbloques $n/2 \times n/2$ y combinar con 7 productos en lugar de 8:
+\begin{align*}
+M_1 &= (A_{11}\!+\!A_{22})(B_{11}\!+\!B_{22}) &
+M_2 &= (A_{21}\!+\!A_{22})B_{11} \\
+M_3 &= A_{11}(B_{12}\!-\!B_{22}) &
+M_4 &= A_{22}(B_{21}\!-\!B_{11}) \\
+M_5 &= (A_{11}\!+\!A_{12})B_{22} &
+M_6 &= (A_{21}\!-\!A_{11})(B_{11}\!+\!B_{12}) \\
+M_7 &= (A_{12}\!-\!A_{22})(B_{21}\!+\!B_{22})
+\end{align*}
+y luego
+\begin{align*}
+C_{11} &= M_1 + M_4 - M_5 + M_7\\
+C_{12} &= M_3 + M_5\\
+C_{21} &= M_2 + M_4\\
+C_{22} &= M_1 - M_2 + M_3 + M_6
+\end{align*}
+\end{frame}
+
+\begin{frame}{Pseudocódigo}
+\begin{algorithm}[H]
+\caption{Strassen($A,B$)}
+\begin{algorithmic}[1]
+\If{$n \le n_0$} \State \Return multiplicación clásica
+\EndIf
+\State Particionar $A,B$ en subbloques $n/2\times n/2$
+\State Calcular $M_1,\dots,M_7$ recursivamente
+\State Combinar en $C_{11},C_{12},C_{21},C_{22}$
+\State \Return $C$
+\end{algorithmic}
+\end{algorithm}
+\end{frame}
+
+\begin{frame}{Complejidad (paso a paso)}
+Recurrencia:
+\[ T(n) = 7\,T(n/2) + c\,n^2 \]
+Por Teorema Maestro: $a{=}7$, $b{=}2$, $n^{\log_b a}=n^{\log_2 7}\approx n^{2.807}$. Como $f(n)=\Theta(n^2)=o(n^{\log_2 7})$, domina la parte recursiva.\\[1ex]
+\textbf{Resultado: } $T(n)=\Theta(n^{\log_2 7})\approx \Theta(n^{2.807})$.\\[1ex]
+En la práctica se usa umbral $n_0$ para cambiar a multiplicación clásica por constantes.
+\end{frame}
+
+% ==================================================
+\section{Subsecuencia de suma máxima}
+\begin{frame}{Planteamiento}
+Dado un arreglo $A$ de enteros (positivos y negativos), hallar la \textbf{subsecuencia contigua} de suma máxima.
+\end{frame}
+
+\begin{frame}{Idea Divide y Vencerás}
+\begin{itemize}
+  \item Dividir en mitades $A_L$ y $A_R$.
+  \item La mejor subarreglo es el máximo de:
+  \begin{itemize}
+    \item mejor en $A_L$,
+    \item mejor en $A_R$,
+    \item mejor que \emph{cruza} el centro (máx. sufijo en $A_L$ + máx. prefijo en $A_R$).
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Pseudocódigo}
+\begin{algorithm}[H]
+\caption{MaxSubarray($A$)}
+\begin{algorithmic}[1]
+\If{$|A|=1$} \State \Return $A[0]$
+\EndIf
+\State dividir $A$ en $A_L, A_R$
+\State $bestL \gets$ MaxSubarray($A_L$); \quad $bestR \gets$ MaxSubarray($A_R$)
+\State $cross \gets$ mejor\_sufijo($A_L$) $+$ mejor\_prefijo($A_R$)
+\State \Return $\max(bestL, bestR, cross)$
+\end{algorithmic}
+\end{algorithm}
+\end{frame}
+
+\begin{frame}{Complejidad (paso a paso)}
+La búsqueda de prefijo/sufijo es lineal. Recurrencia:
+\[ T(n) = 2\,T(n/2) + c\,n \Rightarrow T(n)=\Theta(n\log n).\]
+\textbf{Nota:} Existe una solución lineal (\emph{Kadane}) $\Theta(n)$, pero aquí se usa DyV.
+\end{frame}
+
+\begin{frame}{Cierre}
+El paradigma \emph{divide y vencerás} permite diseñar soluciones modulares y analizables: \\[0.5ex]
+\begin{tabular}{l|c}
+\textbf{Problema} & \textbf{Complejidad} \\ \hline
+Moda (fusión de frecuencias) & $\Theta(n\log n)$ \\
+Karatsuba (enteros grandes) & $\Theta(n^{\log_2 3})$ \\
+Strassen (matrices) & $\Theta(n^{\log_2 7})$ \\
+Subsecuencia de suma máxima & $\Theta(n\log n)$ \\
+\end{tabular}
+\end{frame}
+
+\end{document}

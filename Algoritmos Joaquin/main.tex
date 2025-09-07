@@ -1,0 +1,514 @@
+\documentclass{beamer}
+
+% Paquetes útiles
+\usepackage[utf8]{inputenc} % Acentos y tildes
+\usepackage[spanish]{babel} % Idioma español
+\usepackage{amsmath, amssymb} % Símbolos matemáticos
+\usepackage{algorithm}{}
+\usepackage{float}
+\renewcommand{\thealgorithm}{} % quita numeración
+\floatname{algorithm}{} 
+\usepackage{algpseudocode} % Pseudocódigo estilo "algorithmic"
+
+\setbeamercolor{frametitle}{bg=blue!255, fg=white} % Fondo azul claro, texto blanco
+\setbeamercolor{title}{bg=blue!255, fg=white}      % Portada también
+\setbeamercolor{author}{fg=black}
+\setbeamercolor{date}{fg=black}
+
+
+% Información de portada
+\title{Tarea 1}
+\author{Delgado Romero Gustavo \\ Torres Reategui Joaquin}
+\date{\today}
+
+\begin{document}
+
+% Portada
+\begin{frame}
+  \titlepage
+\end{frame}
+
+% Diapositiva con pseudocódigo
+% --- Primera parte del algoritmo ---
+\begin{frame}{Problema 1: Moda de un vector}
+  \begin{algorithm}[H]
+    \caption{Cálculo de la moda con Divide y Vencerás (Parte I)}
+    \begin{algorithmic}[1]
+      \Function{Moda\_Divide\_Venceras}{arr}
+        \If{longitud(arr) = 1}
+          \State \Return \{ arr[0] : 1 \}
+        \EndIf
+        \State mid $\gets$ longitud(arr) / 2
+        \State freq\_izq $\gets$ Moda\_Divide\_Venceras(arr[0:mid])
+        \State freq\_der $\gets$ Moda\_Divide\_Venceras(arr[mid:])
+        \State \Return Merge\_Freq(freq\_izq, freq\_der)
+      \EndFunction
+    \end{algorithmic}
+  \end{algorithm}
+\end{frame}
+
+% --- Segunda parte del algoritmo ---
+\begin{frame}{Problema 1: Moda de un vector}
+  \begin{algorithm}[H]
+    \caption{Cálculo de la moda con Divide y Vencerás (Parte II)}
+    \begin{algorithmic}[1]
+      \Function{Merge\_Freq}{freq\_izq, freq\_der}
+        \State combinado $\gets$ copia(freq\_izq)
+        \ForAll{(k, v) en freq\_der}
+          \State combinado[k] $\gets$ combinado.get(k,0) + v
+        \EndFor
+        \State \Return combinado
+      \EndFunction
+      
+    \end{algorithmic}
+  \end{algorithm}
+\end{frame}
+
+% --- Diapositiva 1 ---
+\begin{frame}{Análisis de complejidad}
+Consideramos la recurrencia:
+\[
+T(n)=
+\begin{cases}
+2, & n=1, \\[6pt]
+2T\!\left(\tfrac{n}{2}\right) + c n, & n>1,
+\end{cases}
+\]
+donde \(c>0\) es una constante.
+
+\bigskip
+
+\end{frame}
+
+% --- Diapositiva 2 ---
+\begin{frame}{Expansión de la recurrencia}
+Aplicamos el método iterativo (expansión):
+
+\[
+T(n) = 2T\!\left(\tfrac{n}{2}\right) + cn
+\]
+
+\[
+T(n) = 2\Big(2T\!\big(\tfrac{n}{2^2}\big) + c\tfrac{n}{2}\Big) + cn
+      = 2^2T\!\big(\tfrac{n}{2^2}\big) + 2cn
+\]
+
+\[
+T(n) = 2^iT\!\big(\tfrac{n}{2^i}\big) + i \, cn
+\]
+\end{frame}
+
+% --- Diapositiva 3 ---
+\begin{frame}{Conclusión}
+Cuando \(\tfrac{n}{2^k}=1 \implies k=\log_2 n\):
+
+\[
+T(n) = 2^{\log_2 n}\,T(1) + cn\log_2 n
+\]
+
+\[
+T(n) = n\cdot 2 + cn\log_2 n
+\]
+
+\bigskip
+\textbf{Conclusión:}
+\[
+T(n) = \Theta(n\log n).
+\]
+\end{frame}
+
+% --- Diapositiva 1 ---
+\begin{frame}{Problema 2: Multiplicación de enteros grandes}
+\begin{algorithm}[H]
+\caption{Multiplicación de enteros grandes por divide y vencerás(Parte I)}
+\begin{algorithmic}[1]
+\Function{Multiplicacion}{x, y}
+  \If{$x < 10$ \textbf{ or } $y < 10$}
+     \State \Return $x \times y$ \Comment{Caso base: 1 dígito}
+  \EndIf
+  \State $n \gets \max(\text{len}(x), \text{len}(y))$
+  \State $m \gets \lfloor n/2 \rfloor$
+  \State Dividir $x$ en $x_1, x_0$ tal que $x = x_1 \cdot 10^m + x_0$
+  \State Dividir $y$ en $y_1, y_0$ tal que $y = y_1 \cdot 10^m + y_0$
+  \EndFunction 
+\end{algorithmic}
+\end{algorithm}
+\end{frame}
+
+% --- Diapositiva 2 ---
+\begin{frame}{Problema 2: Multiplicación de enteros grandes }
+\begin{algorithm}[H]
+\caption{Multiplicación de enteros grandes por divide y vencerás(Parte II)}
+\begin{algorithmic}[1]
+  \Function{Multiplicacion}{x, y}   % <- IMPORTANTE: abrir de nuevo
+    \State $z_2 \gets \text{Multiplicacion}(x_1, y_1)$
+    \State $z_0 \gets \text{Multiplicacion}(x_0, y_0)$
+    \State $z_1 \gets \text{Multiplicacion}(x_1+x_0,\, y_1+y_0) - z_2 - z_0$
+    \State \Return $z_2 \cdot 10^{2m} + z_1 \cdot 10^m + z_0$
+  \EndFunction                      % <- y cerrarla
+\end{algorithmic}
+\end{algorithm}
+\end{frame}
+
+
+\begin{frame}{Recurrencia}
+La recurrencia asociada al algoritmo  es:
+\[
+T(n) =
+\begin{cases}
+4, & n=1, \\[6pt]
+3\,T\!\left(\dfrac{n}{2}\right) + c\,n, & n>1,
+\end{cases}
+\]
+donde $c>0$ es una constante que representa el coste lineal de las operaciones de suma, resta y combinación.
+\end{frame}
+
+% --- Expansión ---
+\begin{frame}{Expansión de la recurrencia}
+Desarrollamos por expansión iterativa:
+
+\[
+T(n) = 3T\!\left(\tfrac{n}{2}\right)+c n
+\]
+
+\[
+T(n) = 3\Big(3T\!\big(\tfrac{n}{2^2}\big)+c\tfrac{n}{2}\Big)+c n
+= 3^2 T\!\big(\tfrac{n}{2^2}\big) + c n\Big(1+\tfrac{3}{2}\Big).
+\]
+
+Después de $i$ expansiones:
+\[
+T(n)=3^{i}T\!\big(\tfrac{n}{2^{i}}\big) + c n\sum_{j=0}^{i-1}\Big(\tfrac{3}{2}\Big)^{j}.
+\]
+\end{frame}
+
+% --- Evaluación de la suma ---
+\begin{frame}{Evaluación de la suma}
+La suma geométrica es:
+\[
+\sum_{j=0}^{i-1}\Big(\tfrac{3}{2}\Big)^{j}
+= \frac{\big(\tfrac{3}{2}\big)^{i}-1}{\tfrac{3}{2}-1}
+= 2\Big(\big(\tfrac{3}{2}\big)^{i}-1\Big).
+\]
+
+Por tanto:
+\[
+T(n)=3^{i}T\!\big(\tfrac{n}{2^{i}}\big) + 2c n\Big(\big(\tfrac{3}{2}\big)^{i}-1\Big).
+\]
+\end{frame}
+
+% --- Sustitución en la hoja ---
+\begin{frame}{Sustituyendo en la hoja}
+Tomamos $i=k$ tal que $\tfrac{n}{2^{k}}=1 \implies k=\log_2 n$.
+
+\[
+3^{k}=3^{\log_2 n}=n^{\log_2 3}, \quad
+\Big(\tfrac{3}{2}\Big)^{k}=n^{\log_2(3/2)}=n^{\log_2 3 -1}.
+\]
+
+Con $T(1)=4$:
+\[
+\begin{aligned}
+T(n) &= 3^{k}T(1) + 2c n\Big(n^{\log_2 3 -1}-1\Big)\\[6pt]
+     &= 4\,n^{\log_2 3} + 2c\,n^{\log_2 3} - 2c\,n.
+\end{aligned}
+\]
+\end{frame}
+
+% --- Conclusión ---
+\begin{frame}{Conclusión}
+Dado que $\log_2 3 \approx 1.585$, el término dominante es $n^{\log_2 3}$.
+
+\[
+\boxed{T(n)=\Theta\!\big(n^{\log_2 3}\big) \approx \Theta(n^{1.585})}
+\]
+
+
+\end{frame}
+
+
+%--- EN LA SIGUIENTE SECCION IRIA EL 3ER PROBLEMA-----
+
+% --- Parte I ---
+\begin{frame}{Problema 3: Multiplicación de matrices}
+\scriptsize % �� reducimos el tamaño de la letra
+\begin{algorithm}[H]
+\caption{Multiplicación de matrices por divide y vencerás(Parte I)}
+\begin{algorithmic}[1]
+  \Function{Mult\_Divide\_Conquer}{A, B}
+    \State $n \gets$ tamaño de $A$
+    \If{$n = 1$}
+      \State \Return $A_{11} \cdot B_{11}$
+    \EndIf
+    \State $(A_{11}, A_{12}, A_{21}, A_{22}) \gets \text{Split\_Matrix}(A)$
+    \State $(B_{11}, B_{12}, B_{21}, B_{22}) \gets \text{Split\_Matrix}(B)
+    $
+  \EndFunction
+\end{algorithmic}
+\end{algorithm}
+\end{frame}
+
+% --- Parte II ---
+\begin{frame}{Problema 3: Multiplicación de matrices}
+\scriptsize
+\begin{algorithm}[H]
+\caption{Multiplicación de matrices por divide y vencerás(Parte II)}
+\begin{algorithmic}[1]
+  \Function{Mult\_Divide\_Conquer}{A, B}   % <- Reabrir función
+    \State $C_{11} \gets \text{Mult\_Divide\_Conquer}(A_{11}, B_{11}) + \text{Mult\_Divide\_Conquer}(A_{12}, B_{21})$
+    \State $C_{12} \gets \text{Mult\_Divide\_Conquer}(A_{11}, B_{12}) + \text{Mult\_Divide\_Conquer}(A_{12}, B_{22})$
+    \State $C_{21} \gets \text{Mult\_Divide\_Conquer}(A_{21}, B_{11}) + \text{Mult\_Divide\_Conquer}(A_{22}, B_{21})$
+    \State $C_{22} \gets \text{Mult\_Divide\_Conquer}(A_{21}, B_{12}) + \text{Mult\_Divide\_Conquer}(A_{22}, B_{22})$
+
+    \State Combinar $C_{11}, C_{12}, C_{21}, C_{22}$ en $C$ de tamaño $n \times n$
+    \State \Return $C$
+  \EndFunction
+\end{algorithmic}
+\end{algorithm}
+\end{frame}
+
+
+
+% --- Diapositiva 2: Funciones auxiliares ---
+\begin{frame}{Problema 3: Multiplicación de matrices}
+\begin{algorithm}[H]
+\caption{Multiplicación de matrices por divide y vencerás(Parte III)}
+\begin{algorithmic}[1]
+\Function{Add\_Matrix}{A, B}
+  \State $n \gets$ tamaño de $A$
+  \For{$i \gets 1$ hasta $n$}
+    \For{$j \gets 1$ hasta $n$}
+      \State $C[i][j] \gets A[i][j] + B[i][j]$
+    \EndFor
+  \EndFor
+  \State \Return $C$
+\EndFunction
+
+\Function{Sub\_Matrix}{A, B}
+  \State $n \gets$ tamaño de $A$
+  \For{$i \gets 1$ hasta $n$}
+    \For{$j \gets 1$ hasta $n$}
+      \State $C[i][j] \gets A[i][j] - B[i][j]$
+    \EndFor
+  \EndFor
+  \State \Return $C$
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+\end{frame}
+
+% --- Diapositiva 3: Funciones de dividir y combinar ---
+\begin{frame}{Problema 4: Multiplicacion de matrices}
+\begin{algorithm}[H]
+\caption{Dividir y combinar matrices}
+\begin{algorithmic}[1]
+\Function{Split\_Matrix}{A}
+  \State $n \gets$ tamaño de $A$
+  \State $m \gets n/2$
+  \State $A_{11} \gets$ submatriz superior izquierda
+  \State $A_{12} \gets$ submatriz superior derecha
+  \State $A_{21} \gets$ submatriz inferior izquierda
+  \State $A_{22} \gets$ submatriz inferior derecha
+  \State \Return $(A_{11}, A_{12}, A_{21}, A_{22})$
+\EndFunction
+
+\Function{Combine\_Matrix}{$C_{11}, C_{12}, C_{21}, C_{22}$}
+  \State Formar matriz $C$ uniendo los cuatro cuadrantes
+  \State \Return $C$
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+\end{frame}
+
+
+
+% --- Diapositiva 1: Recurrencia ---
+\begin{frame}{Recurrencia de la multiplicación de matrices}
+La recurrencia asociada al algoritmo es:
+\[
+T(n) =
+\begin{cases}
+3, & n = 1, \\[6pt]
+8T\!\left(\tfrac{n}{2}\right) + c n^2, & n > 1,
+\end{cases}
+\]
+donde $c>0$ es una constante que representa el coste de sumar y combinar matrices.
+\end{frame}
+
+% --- Diapositiva 2: Expansión iterativa ---
+\begin{frame}{Expansión iterativa}
+Expandimos la recurrencia paso a paso:
+
+\[
+T(n) = 8T\!\left(\tfrac{n}{2}\right) + c n^2
+\]
+
+\[
+T(n) = 8\Big(8T\!\big(\tfrac{n}{2^2}\big) + c\big(\tfrac{n}{2}\big)^2\Big) + c n^2
+= 8^2 T\!\big(\tfrac{n}{2^2}\big) + 8c \tfrac{n^2}{4} + c n^2
+\]
+
+\[
+T(n) = 8^2 T\!\big(\tfrac{n}{2^2}\big) + 3c n^2
+\]
+
+En general, tras $i$ expansiones:
+\[
+T(n) = 8^i T\!\big(\tfrac{n}{2^i}\big) + c n^2 \sum_{j=0}^{i-1} 2^j
+\]
+porque cada nivel de recursión agrega un coste proporcional a $n^2 \cdot 2^j$.
+\end{frame}
+
+% --- Diapositiva 3: Evaluación en la hoja ---
+\begin{frame}{Evaluación en la hoja}
+Tomamos $i=k$ tal que $\tfrac{n}{2^k}=1 \implies k=\log_2 n$.
+
+\[
+8^k = 8^{\log_2 n} = n^{\log_2 8} = n^3
+\]
+
+La suma geométrica:
+\[
+\sum_{j=0}^{k-1} 2^j = \frac{2^k - 1}{2 - 1} = \frac{n^{\log_2 2}-1}{1} = {n - 1}
+\]
+
+Por tanto:
+\[
+T(n) = n^3 T(1) + c n^2 \cdot {(n - 1)}
+\]
+\end{frame}
+
+% --- Diapositiva 4: Conclusión ---
+\begin{frame}{Conclusión}
+Dado que $T(1)=3$:
+
+\[
+T(n) = 3n^3 + {c}(n^3 - n^2)
+\]
+
+El término dominante es $n^3$, proveniente de $n^{\log_2 8}$.
+
+\[
+\boxed{T(n) = \Theta(n^3)}
+\]
+
+\bigskip
+
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+%----------------------------------
+
+% --- PROBLEMA 4-------
+\begin{frame}{Problema 4: Maxima subsecuencia (Parte I)}
+\begin{algorithm}[H]
+\caption{Función \textsc{Max\_Sum}}
+\begin{algorithmic}[1]
+\Function{Max\_Sum}{A, izquierda, medio, derecha}
+  \State suma\_izq $\gets -\infty$
+  \State total $\gets 0$
+  \For{$i \gets$ medio \textbf{hasta} izquierda \textbf{}}
+    \State total $\gets$ total + A[i]
+    \State suma\_izq $\gets \max$(suma\_izq, total)
+  \EndFor
+  \State suma\_der $\gets -\infty$
+  \State total $\gets 0$
+  \For{$i \gets$ medio+1 \textbf{hasta} derecha \textbf{}}
+    \State total $\gets$ total + A[i]
+    \State suma\_der $\gets \max$(suma\_der, total)
+  \EndFor
+  \State \Return suma\_izq + suma\_der
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+\end{frame}
+
+% --- Función MAX_SUBARRAY ---
+\begin{frame}{Problema 4: Maxima subsecuencia (Parte II)}
+\begin{algorithm}[H]
+\caption{Función \textsc{Max\_Subarray}}
+\begin{algorithmic}[1]
+\Function{Max\_Subarray}{A, izquierda, derecha}
+  \If{izquierda = derecha}
+    \State \Return A[izquierda]
+  \EndIf
+  \State medio $\gets \lfloor \tfrac{\text{izquierda + derecha}}{2} \rfloor$
+  \State max\_izq $\gets$ Max\_Subarray(A, izquierda, medio)
+  \State max\_der $\gets$ Max\_Subarray(A, medio+1, derecha)
+  \State max\_cruz $\gets$ Max\_Sum(A, izquierda, medio, derecha)
+  \State \Return $\max$(max\_izq, max\_der, max\_cruz)
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+\end{frame}
+
+% --- Diapositiva 1: Recurrencia ---
+\begin{frame}{Recurrencia}
+Consideramos la recurrencia
+\[
+T(n)=
+\begin{cases}
+2, & n=1,\\[6pt]
+2\,T\!\left(\dfrac{n}{2}\right) + c\,n, & n>1,
+\end{cases}
+\]
+donde \(c>0\) es una constante que representa el coste lineal de combinar resultados y calcular la suma cruzada.
+\end{frame}
+
+% --- Diapositiva 2: Expansión iterativa ---
+\begin{frame}{Expansión iterativa}
+Desarrollamos la recurrencia por sustitución:
+
+\[
+\begin{aligned}
+T(n) &= 2T\!\left(\tfrac{n}{2}\right) + c n\\[4pt]
+     &= 2\Big(2T\!\big(\tfrac{n}{2^2}\big) + c\tfrac{n}{2}\Big) + c n
+      = 2^2 T\!\big(\tfrac{n}{2^2}\big) + 2\cdot c\tfrac{n}{2} + c n\\[4pt]
+     &= 2^2 T\!\big(\tfrac{n}{2^2}\big) + c n + c n
+     = 2^2 T\!\big(\tfrac{n}{2^2}\big) + 2\,c n.
+\end{aligned}
+\]
+
+Tras \(i\) expansiones obtenemos la forma general
+\[
+T(n)=2^{i}T\!\big(\tfrac{n}{2^{i}}\big) + i\; c n.
+\]
+(Observación: en cada nivel de la recursión aparece un término \(c n\), por eso la suma es \(i\cdot c n\).)
+\end{frame}
+
+% --- Diapositiva 3: Evaluación en la hoja y conclusión ---
+\begin{frame}{Evaluación en la hoja y conclusión}
+Tomamos \(i=k\) tal que \(\dfrac{n}{2^{k}}=1\), es decir \(k=\log_2 n\). Sustituyendo:
+
+\[
+2^{k}=2^{\log_2 n}=n,\qquad T(1)=2.
+\]
+
+Entonces
+\[
+T(n)=2^{k}T(1) + k\; c n = n\cdot 2 + c n \log_2 n.
+\]
+
+Como término dominante queda \(c n \log_2 n\), por lo que
+\[
+\boxed{\,T(n)=\Theta(n\log n)\,}
+\]
+
+
+\end{frame}
+
+
+
+
+\end{document}

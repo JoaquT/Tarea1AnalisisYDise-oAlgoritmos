@@ -1,0 +1,5 @@
+\babel@toc {spanish}{}\relax 
+\beamer@sectionintoc {1}{Moda de un vector}{2}{0}{1}
+\beamer@sectionintoc {2}{Multiplicación de enteros grandes (Karatsuba)}{6}{0}{2}
+\beamer@sectionintoc {3}{Multiplicación de matrices (Strassen)}{10}{0}{3}
+\beamer@sectionintoc {4}{Subsecuencia de suma máxima}{14}{0}{4}
