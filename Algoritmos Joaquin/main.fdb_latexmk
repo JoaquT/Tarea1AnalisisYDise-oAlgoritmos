@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1757301984.02407 "d:/02.Estudios/1.UNI/CC371 ADA/Trabajos/Proyecto 1/Tarea1AnalisisYDisenioAlgoritmos/Algoritmos Joaquin/main.tex" "main.pdf" "main" 1757301986.06369 0
+["pdflatex"] 1757306903.2231 "d:/02.Estudios/1.UNI/CC371 ADA/Trabajos/Proyecto 1/Tarea1AnalisisYDisenioAlgoritmos/Algoritmos Joaquin/main.tex" "main.pdf" "main" 1757306905.47585 0
   "C:/Users/gusta/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1757275294 83665 e74152440a79c80045ec5ef3cd1f6917 ""
   "C:/Users/gusta/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1748304387 13159325 e3e11ae577b754d0485670f6f7c968ab ""
   "C:/Users/gusta/AppData/Local/Programs/MiKTeX/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1233951848 1004 54797486969f23fa377b128694d548df ""
@@ -212,11 +212,12 @@
   "C:/Users/gusta/AppData/Local/Programs/MiKTeX/tex/latex/translator/translator.sty" 1622471510 8765 56d370785f0143111ff9898b5adfe08e ""
   "C:/Users/gusta/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "C:/Users/gusta/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/xcolor.sty" 1729265222 55384 b454dec21c2d9f45ec0b793f0995b992 ""
-  "d:/02.Estudios/1.UNI/CC371 ADA/Trabajos/Proyecto 1/Tarea1AnalisisYDisenioAlgoritmos/Algoritmos Joaquin/main.tex" 1757301981 14036 2dac5768f1e083b838fda2c876d9ef67 ""
-  "main.aux" 1757301985 6074 aa2f835a70d47bf759536d5da2943e74 "pdflatex"
-  "main.nav" 1757301985 2783 f8b0d1eaf383f71e4268670ac899f7e1 "pdflatex"
-  "main.out" 1757301984 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "main.tex" 1757301981 14036 2dac5768f1e083b838fda2c876d9ef67 ""
+  "d:/02.Estudios/1.UNI/CC371 ADA/Trabajos/Proyecto 1/Tarea1AnalisisYDisenioAlgoritmos/Algoritmos Joaquin/main.tex" 1757306900 14646 a3ba0349007d3209838681079139609e ""
+  "main.aux" 1757306905 10987 a3b50afbe6ee7624f92d4f52b06218e9 "pdflatex"
+  "main.nav" 1757306905 5878 61c15f018744dad1ddde5a0f20fbf21d "pdflatex"
+  "main.out" 1757306905 2441 30b9551f6779dc200156a9688bff6c5a "pdflatex"
+  "main.tex" 1757306900 14646 a3ba0349007d3209838681079139609e ""
+  "main.toc" 1757306905 1026 b0dde444fe91746d8dc77a0ad0977758 "pdflatex"
   (generated)
   "main.aux"
   "main.log"

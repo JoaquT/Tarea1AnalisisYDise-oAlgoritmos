@@ -28,8 +28,28 @@
   \titlepage
 \end{frame}
 
+\section{Introducción}
+\begin{frame}{Introducción}
+    En esta presentación, exploraremos cuatro problemas clásicos que pueden ser resueltos eficientemente utilizando el paradigma de \textbf{divide y vencerás}. Estos problemas son:
+    \begin{itemize}
+      \item Moda de un vector
+      \item Multiplicación de enteros grandes
+      \item Multiplicación de matrices
+      \item Subsecuencia de suma máxima
+    \end{itemize}
+\end{frame}
+\begin{frame}
+    \tableofcontents[sections={2-5}]
+\end{frame}
+
+
+\section{Moda de un vector}
+\begin{frame}{Moda de un vector}
+        \tableofcontents[sections={2}]
+\end{frame}
 % Diapositiva con pseudocódigo
 % --- Primera parte del algoritmo ---
+\subsection{Pseudocódigo}
 \begin{frame}{Problema 1: Moda de un vector}
   \begin{algorithm}[H]
     \caption{Cálculo de la moda con Divide y Vencerás (Parte I)}
@@ -65,6 +85,7 @@
 \end{frame}
 
 % --- Diapositiva 1 ---
+\subsection{Análisis de complejidad}
 \begin{frame}{Análisis de complejidad}
 Consideramos la recurrencia:
 \[
@@ -99,6 +120,7 @@ T(n) = 2^iT\!\big(\tfrac{n}{2^i}\big) + i \, cn
 \end{frame}
 
 % --- Diapositiva 3 ---
+\subsection{Conclusión}
 \begin{frame}{Conclusión}
 Cuando \(\tfrac{n}{2^k}=1 \implies k=\log_2 n\):
 
@@ -118,6 +140,12 @@ T(n) = \Theta(n\log n).
 \end{frame}
 
 % --- Diapositiva 1 ---
+
+\section{Multiplicacion de enteros grandes}
+\begin{frame}{Multiplicacion de enteros grandes}
+        \tableofcontents[sections={3}]
+\end{frame}
+\subsection{Pseudocódigo}
 \begin{frame}{Problema 2: Multiplicación de enteros grandes}
 \begin{algorithm}[H]
 \caption{Multiplicación de enteros grandes por divide y vencerás}
@@ -141,7 +169,7 @@ T(n) = \Theta(n\log n).
 
 
 
-
+\subsection{Análisis de complejidad}
 \begin{frame}{Recurrencia}
 La recurrencia asociada al algoritmo  es:
 \[
@@ -207,6 +235,7 @@ T(n) &= 3^{k}T(1) + 2c n\Big(n^{\log_2 3 -1}-1\Big)\\[6pt]
 \end{frame}
 
 % --- Conclusión ---
+\subsection{Conclusión}
 \begin{frame}{Conclusión}
 Dado que $\log_2 3 \approx 1.585$, el término dominante es $n^{\log_2 3}$.
 
@@ -221,12 +250,18 @@ Dado que $\log_2 3 \approx 1.585$, el término dominante es $n^{\log_2 3}$.
 %--- EN LA SIGUIENTE SECCION IRIA EL 3ER PROBLEMA-----
 
 % ================== Frame 1 ==================
+\section{Multiplicacion de matrices}
+\begin{frame}{Multiplicacion de matrices}
+        \tableofcontents[sections={4}]
+\end{frame}
+\subsection{Pseudocódigo}
+
 \begin{frame}{Problema 3: Multiplicación de matrices (Parte I)}
 \scriptsize
 \begin{algorithm}[H]
-\caption{Multiplicación de matrices por divide y vencerás}
+\caption{Multiplicación de matrices por divide y vencerás (MULTdc)}
 \begin{algorithmic}[1]
-  \Function{Mult\_Divide\_Conquer}{A, B}
+  \Function{MULTdc}{A, B}
     \State $n \gets$ tamaño de $A$
     \If{$n = 1$}
       \State \Return $A_{11} \cdot B_{11}$
@@ -247,27 +282,19 @@ Dado que $\log_2 3 \approx 1.585$, el término dominante es $n^{\log_2 3}$.
 \begin{algorithmic}[1]
     % Restauramos el estado (sigue numeración y bloques abiertos)
     \algrestore{multdc}
-  \State $C_{11} \gets \text{Mult\_Divide\_Conquer}(A_{11}, B_{11}) + \text{Mult\_Divide\_Conquer}(A_{12}, B_{21})$
-  \State $C_{12} \gets \text{Mult\_Divide\_Conquer}(A_{11}, B_{12}) + \text{Mult\_Divide\_Conquer}(A_{12}, B_{22})$ 
-  % Volvemos a guardar para continuar en el siguiente frame
-    \algstore{multdc}
-\end{algorithmic}
-\end{algorithm}
-\end{frame}
-
-% ================== Frame 3 ==================
-\begin{frame}{Problema 3: Multiplicación de matrices (Parte III)}
-\scriptsize
-\begin{algorithm}[H]
-\caption{Multiplicación de matrices por divide y vencerás (cont.)}
-\begin{algorithmic}[1]
-    \algrestore{multdc}
+    \State $C_{11} \gets \text{Add\_Matrix}(\text{MULTdc}(A_{11}, B_{11}),\text{MULTdc}(A_{12}, B_{21}))$
+    \State $C_{12} \gets \text{Add\_Matrix}(\text{MULTdc}(A_{11}, B_{12}),\text{MULTdc}(A_{12}, B_{22}))$ 
+  
+    \State $C_{21} \gets \text{Add\_Matrix}(\text{MULTdc}(A_{21}, B_{11}), \text{MULTdc}(A_{22}, B_{21}))$
+    \State $C_{22} \gets \text{Add\_Matrix}(\text{MULTdc}(A_{21}, B_{12}), \text{MULTdc}(A_{22}, B_{22}))$
     
-    \State $C_{21} \gets \text{Mult\_Divide\_Conquer}(A_{21}, B_{11}) + \text{Mult\_Divide\_Conquer}(A_{22}, B_{21})$
-    \State $C_{22} \gets \text{Mult\_Divide\_Conquer}(A_{21}, B_{12}) + \text{Mult\_Divide\_Conquer}(A_{22}, B_{22})$
-    \State Combinar $C_{11}, C_{12}, C_{21}, C_{22}$ en $C$ de tamaño $n \times n$
+    
+    \State $C \gets \text{Combine\_Matrix}(C_{11}, C_{12}, C_{21}, C_{22})$
+    %\State Combinar $C_{11}, C_{12}, C_{21}, C_{22}$ en $C$ de tamaño $n \times n$
     \State \Return $C$
   \EndFunction
+  % Volvemos a guardar para continuar en el siguiente frame
+
 \end{algorithmic}
 \end{algorithm}
 \end{frame}
@@ -277,7 +304,7 @@ Dado que $\log_2 3 \approx 1.585$, el término dominante es $n^{\log_2 3}$.
 % --- Diapositiva 2: Funciones auxiliares ---
 \begin{frame}{Problema 3: Multiplicación de matrices}
 \begin{algorithm}[H]
-\caption{Multiplicación de matrices por divide y vencerás(Parte II)}
+\caption{Multiplicación de matrices por divide y vencerás}
 \begin{algorithmic}[1]
 \Function{Add\_Matrix}{A, B}
   \State $n \gets$ tamaño de $A$
@@ -295,25 +322,8 @@ Dado que $\log_2 3 \approx 1.585$, el término dominante es $n^{\log_2 3}$.
 
 
 
-\begin{frame}{Problema 3: Multiplicación de matrices}
-\begin{algorithm}[H]
-\caption{Multiplicación de matrices por divide y vencerás(Parte II)}
-\begin{algorithmic}[1]
-\Function{Sub\_Matrix}{A, B}
-  \State $n \gets$ tamaño de $A$
-  \For{$i \gets 1$ hasta $n$}
-    \For{$j \gets 1$ hasta $n$}
-      \State $C[i][j] \gets A[i][j] - B[i][j]$
-    \EndFor
-  \EndFor
-  \State \Return $C$
-\EndFunction
-\end{algorithmic}
-\end{algorithm}
-\end{frame}
-
 % --- Diapositiva 3: Funciones de dividir y combinar ---
-\begin{frame}{Problema 4: Multiplicacion de matrices}
+\begin{frame}{Problema 3: Multiplicacion de matrices}
 \begin{algorithm}[H]
 \caption{Dividir y combinar matrices}
 \begin{algorithmic}[1]
@@ -334,7 +344,7 @@ Dado que $\log_2 3 \approx 1.585$, el término dominante es $n^{\log_2 3}$.
 
 
 % --- Diapositiva 3: Funciones de dividir y combinar ---
-\begin{frame}{Problema 4: Multiplicacion de matrices}
+\begin{frame}{Problema 3: Multiplicacion de matrices}
 \begin{algorithm}[H]
 \caption{Dividir y combinar matrices}
 \begin{algorithmic}[1]
@@ -349,6 +359,7 @@ Dado que $\log_2 3 \approx 1.585$, el término dominante es $n^{\log_2 3}$.
 
 
 % --- Diapositiva 1: Recurrencia ---
+\subsection{Análisis de complejidad}
 \begin{frame}{Recurrencia de la multiplicación de matrices}
 La recurrencia asociada al algoritmo es:
 \[
@@ -405,6 +416,7 @@ T(n) = n^3 T(1) + c n^2 \cdot {(n - 1)}
 \end{frame}
 
 % --- Diapositiva 4: Conclusión ---
+\subsection{Conclusión}
 \begin{frame}{Conclusión}
 Dado que $T(1)=3$:
 
@@ -421,22 +433,14 @@ El término dominante es $n^3$, proveniente de $n^{\log_2 8}$.
 \bigskip
 
 \end{frame}
-
-
-
-
-
-
-
-
-
-
-
-
-
 %----------------------------------
 
 % --- PROBLEMA 4-------
+\section{Maxima subsecuencia}
+\begin{frame}{Maxima subsecuencia}
+        \tableofcontents[sections={5}]
+\end{frame}
+\subsection{Pseudocódigo}
 \begin{frame}{Problema 4: Maxima subsecuencia (Parte I)}
 \begin{algorithm}[H]
 \caption{Función \textsc{Max\_Sum}}
@@ -480,6 +484,7 @@ El término dominante es $n^3$, proveniente de $n^{\log_2 8}$.
 \end{frame}
 
 % --- Diapositiva 1: Recurrencia ---
+\subsection{Análisis de complejidad}
 \begin{frame}{Recurrencia}
 Consideramos la recurrencia
 \[
@@ -514,6 +519,7 @@ T(n)=2^{i}T\!\big(\tfrac{n}{2^{i}}\big) + i\; c n.
 \end{frame}
 
 % --- Diapositiva 3: Evaluación en la hoja y conclusión ---
+\subsection{conclusión}
 \begin{frame}{Evaluación en la hoja y conclusión}
 Tomamos \(i=k\) tal que \(\dfrac{n}{2^{k}}=1\), es decir \(k=\log_2 n\). Sustituyendo:
 

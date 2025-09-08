@@ -1,1 +1,18 @@
 \babel@toc {spanish}{}\relax 
+\beamer@sectionintoc {1}{Introducción}{2}{0}{1}
+\beamer@sectionintoc {2}{Moda de un vector}{4}{0}{2}
+\beamer@subsectionintoc {2}{1}{Pseudocódigo}{5}{0}{2}
+\beamer@subsectionintoc {2}{2}{Análisis de complejidad}{7}{0}{2}
+\beamer@subsectionintoc {2}{3}{Conclusión}{9}{0}{2}
+\beamer@sectionintoc {3}{Multiplicacion de enteros grandes}{10}{0}{3}
+\beamer@subsectionintoc {3}{1}{Pseudocódigo}{11}{0}{3}
+\beamer@subsectionintoc {3}{2}{Análisis de complejidad}{12}{0}{3}
+\beamer@subsectionintoc {3}{3}{Conclusión}{16}{0}{3}
+\beamer@sectionintoc {4}{Multiplicacion de matrices}{17}{0}{4}
+\beamer@subsectionintoc {4}{1}{Pseudocódigo}{18}{0}{4}
+\beamer@subsectionintoc {4}{2}{Análisis de complejidad}{23}{0}{4}
+\beamer@subsectionintoc {4}{3}{Conclusión}{26}{0}{4}
+\beamer@sectionintoc {5}{Maxima subsecuencia}{27}{0}{5}
+\beamer@subsectionintoc {5}{1}{Pseudocódigo}{28}{0}{5}
+\beamer@subsectionintoc {5}{2}{Análisis de complejidad}{30}{0}{5}
+\beamer@subsectionintoc {5}{3}{conclusión}{32}{0}{5}

@@ -19,9 +19,6 @@ def add_matrix(A: list, B: list) -> list:
     n = len(A)
     return [[A[i][j] + B[i][j] for j in range(n)] for i in range(n)]
 
-def sub_matrix(A: list, B: list) -> list:
-    n = len(A)
-    return [[A[i][j] - B[i][j] for j in range(n)] for i in range(n)]
 
 def split_matrix(A: list):
     """Divide una matriz en 4 cuadrantes."""
