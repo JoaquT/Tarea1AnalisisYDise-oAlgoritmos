@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.5.26)  7 SEP 2025 14:58
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.5.26)  7 SEP 2025 22:26
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**"d:/02.Estudios/1.UNI/CC371 ADA/Trabajos/Proyecto 1/Tarea1AnalisisYDisenioAlgoritmos/algoritmos/main.tex"
-(d:/02.Estudios/1.UNI/CC371 ADA/Trabajos/Proyecto 1/Tarea1AnalisisYDisenioAlgoritmos/algoritmos/main.tex
+**"d:/02.Estudios/1.UNI/CC371 ADA/Trabajos/Proyecto 1/Tarea1AnalisisYDisenioAlgoritmos/Algoritmos Joaquin/main.tex"
+(d:/02.Estudios/1.UNI/CC371 ADA/Trabajos/Proyecto 1/Tarea1AnalisisYDisenioAlgoritmos/Algoritmos Joaquin/main.tex
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-04-29>
 (C:\Users\gusta\AppData\Local\Programs\MiKTeX\tex/latex/beamer\beamer.cls
@@ -596,12 +596,7 @@ Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
 \ALG@tmplength=\skip68
 )
 Document Style - pseudocode environments for use with the `algorithmicx' style
-)
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\\' on input line 21.
-
-(C:\Users\gusta\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
+) (C:\Users\gusta\AppData\Local\Programs\MiKTeX\tex/latex/beamer\beamerthemeMadrid.sty (C:\Users\gusta\AppData\Local\Programs\MiKTeX\tex/latex/beamer\beamercolorthemewhale.sty) (C:\Users\gusta\AppData\Local\Programs\MiKTeX\tex/latex/beamer\beamercolorthemeorchid.sty) (C:\Users\gusta\AppData\Local\Programs\MiKTeX\tex/latex/beamer\beamerinnerthemerounded.sty) (C:\Users\gusta\AppData\Local\Programs\MiKTeX\tex/latex/beamer\beamerouterthemeinfolines.sty)) (C:\Users\gusta\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
 File: l3backend-pdftex.def 2025-04-14 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count367
 ) (main.aux
@@ -639,14 +634,14 @@ LaTeX Font Info:    ... okay on input line 24.
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
 * modes: includehead includefoot 
-* h-part:(L,W,R)=(28.45274pt, 307.28987pt, 28.45274pt)
+* h-part:(L,W,R)=(10.95003pt, 342.2953pt, 10.95003pt)
 * v-part:(T,H,B)=(0.0pt, 273.14662pt, 0.0pt)
 * \paperwidth=364.19536pt
 * \paperheight=273.14662pt
-* \textwidth=307.28987pt
+* \textwidth=342.2953pt
 * \textheight=244.6939pt
-* \oddsidemargin=-43.81725pt
-* \evensidemargin=-43.81725pt
+* \oddsidemargin=-61.31996pt
+* \evensidemargin=-61.31996pt
 * \topmargin=-72.26999pt
 * \headheight=14.22636pt
 * \headsep=0.0pt
@@ -754,6 +749,18 @@ Dictionary: translator-theorem-dictionary, Language: English
 LaTeX Info: Redefining \. on input line 24.
 LaTeX Info: Redefining \% on input line 24.
  (main.nav)
+LaTeX Font Info:    Trying to load font information for U+msa on input line 29.
+ (C:\Users\gusta\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 29.
+ (C:\Users\gusta\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+LaTeX Font Info:    Trying to load font information for OT1+mathkerncmss on input line 29.
+ (C:\Users\gusta\AppData\Local\Programs\MiKTeX\tex/latex/sansmathaccent\ot1mathkerncmss.fd
+File: ot1mathkerncmss.fd 2020/01/31 Fontinst v1.933 font definitions for OT1/mathkerncmss.
+)
 
 [1
 
@@ -769,18 +776,7 @@ LaTeX Font Warning: Font shape `OMS/cmss/m/n' undefined
 (Font)              using `OMS/cmsy/m/n' instead
 (Font)              for symbol `textbraceleft' on input line 48.
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 48.
-(C:\Users\gusta\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-)
-LaTeX Font Info:    Trying to load font information for U+msb on input line 48.
- (C:\Users\gusta\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-LaTeX Font Info:    Trying to load font information for OT1+mathkerncmss on input line 48.
- (C:\Users\gusta\AppData\Local\Programs\MiKTeX\tex/latex/sansmathaccent\ot1mathkerncmss.fd
-File: ot1mathkerncmss.fd 2020/01/31 Fontinst v1.933 font definitions for OT1/mathkerncmss.
-)
+
 
 [2
 
@@ -829,26 +825,26 @@ File: ot1mathkerncmss.fd 2020/01/31 Fontinst v1.933 font definitions for OT1/mat
 [13
 
 ]
+Underfull \hbox (badness 10000) in paragraph at lines 256--256
+[] $\OT1/mathkerncmss/m/sl/10.95 C[] \OMS/cmss/m/n/10.95   []\OT1/cmss/m/n/10.95 (\OT1/mathkerncmss/m/sl/10.95 A[]\OML/cmm/m/it/10.95 ; \OT1/mathkerncmss/m/sl/10.95 B[]\OT1/cmss/m/n/10.95 ) +
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 256--256
+[] $\OT1/mathkerncmss/m/sl/10.95 C[] \OMS/cmss/m/n/10.95   []\OT1/cmss/m/n/10.95 (\OT1/mathkerncmss/m/sl/10.95 A[]\OML/cmm/m/it/10.95 ; \OT1/mathkerncmss/m/sl/10.95 B[]\OT1/cmss/m/n/10.95 ) +
+ []
+
+
 
 [14
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 268--268
+Underfull \hbox (badness 10000) in paragraph at lines 273--273
 [] $\OT1/mathkerncmss/m/sl/10.95 C[] \OMS/cmss/m/n/10.95   []\OT1/cmss/m/n/10.95 (\OT1/mathkerncmss/m/sl/10.95 A[]\OML/cmm/m/it/10.95 ; \OT1/mathkerncmss/m/sl/10.95 B[]\OT1/cmss/m/n/10.95 ) +
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 268--268
-[] $\OT1/mathkerncmss/m/sl/10.95 C[] \OMS/cmss/m/n/10.95   []\OT1/cmss/m/n/10.95 (\OT1/mathkerncmss/m/sl/10.95 A[]\OML/cmm/m/it/10.95 ; \OT1/mathkerncmss/m/sl/10.95 B[]\OT1/cmss/m/n/10.95 ) +
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 268--268
-[] $\OT1/mathkerncmss/m/sl/10.95 C[] \OMS/cmss/m/n/10.95   []\OT1/cmss/m/n/10.95 (\OT1/mathkerncmss/m/sl/10.95 A[]\OML/cmm/m/it/10.95 ; \OT1/mathkerncmss/m/sl/10.95 B[]\OT1/cmss/m/n/10.95 ) +
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 268--268
+Underfull \hbox (badness 10000) in paragraph at lines 273--273
 [] $\OT1/mathkerncmss/m/sl/10.95 C[] \OMS/cmss/m/n/10.95   []\OT1/cmss/m/n/10.95 (\OT1/mathkerncmss/m/sl/10.95 A[]\OML/cmm/m/it/10.95 ; \OT1/mathkerncmss/m/sl/10.95 B[]\OT1/cmss/m/n/10.95 ) +
  []
 
@@ -857,10 +853,6 @@ Underfull \hbox (badness 10000) in paragraph at lines 268--268
 [15
 
 ]
-Overfull \vbox (44.41533pt too high) detected at line 298
- []
-
-
 
 [16
 
@@ -885,10 +877,6 @@ Overfull \vbox (44.41533pt too high) detected at line 298
 [21
 
 ]
-Overfull \vbox (0.26949pt too high) detected at line 435
- []
-
-
 
 [22
 
@@ -897,6 +885,10 @@ Overfull \vbox (0.26949pt too high) detected at line 435
 [23
 
 ]
+Overfull \vbox (8.93611pt too high) detected at line 461
+ []
+
+
 
 [24
 
@@ -907,6 +899,14 @@ Overfull \vbox (0.26949pt too high) detected at line 435
 ]
 
 [26
+
+]
+
+[27
+
+]
+
+[28
 
 ]
 \tf@nav=\write6
@@ -934,17 +934,17 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 23684 strings out of 469923
- 453848 string characters out of 5469170
- 824753 words of memory out of 5000000
- 49979 multiletter control sequences out of 15000+600000
+ 23980 strings out of 469923
+ 464160 string characters out of 5469170
+ 829310 words of memory out of 5000000
+ 50256 multiletter control sequences out of 15000+600000
  634476 words of font info for 67 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 128i,14n,123p,476b,574s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 128i,16n,123p,484b,580s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/gusta/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/Users/gusta/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/gusta/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/gusta/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/gusta/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmss10.pfb><C:/Users/gusta/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmss12.pfb><C:/Users/gusta/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmss8.pfb><C:/Users/gusta/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmss9.pfb><C:/Users/gusta/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmssbx10.pfb><C:/Users/gusta/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmssi10.pfb><C:/Users/gusta/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmssi8.pfb><C:/Users/gusta/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/gusta/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on main.pdf (26 pages, 292468 bytes).
+Output written on main.pdf (28 pages, 320977 bytes).
 PDF statistics:
- 747 PDF objects out of 1000 (max. 8388607)
- 53 named destinations out of 1000 (max. 500000)
- 43 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 867 PDF objects out of 1000 (max. 8388607)
+ 57 named destinations out of 1000 (max. 500000)
+ 79 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -9,7 +9,7 @@
 \renewcommand{\thealgorithm}{} % quita numeración
 \floatname{algorithm}{} 
 \usepackage{algpseudocode} % Pseudocódigo estilo "algorithmic"
-
+\usetheme{Madrid}
 \setbeamercolor{frametitle}{bg=blue!255, fg=white} % Fondo azul claro, texto blanco
 \setbeamercolor{title}{bg=blue!255, fg=white}      % Portada también
 \setbeamercolor{author}{fg=black}
@@ -17,8 +17,8 @@
 
 
 % Información de portada
-\title{Tarea 1}
-\author{Delgado Romero Gustavo \\ Torres Reategui Joaquin}
+\title[Divide y vencerás]{Tarea 1: Implementación de algoritmos Divide y Vencerás}
+\author[Delgado R. \and Torres R.]{Delgado Romero, Gustavo \inst{1} \and Torres Reategui, Joaquin\inst{2}}
 \date{\today}
 
 \begin{document}
@@ -120,7 +120,7 @@ T(n) = \Theta(n\log n).
 % --- Diapositiva 1 ---
 \begin{frame}{Problema 2: Multiplicación de enteros grandes}
 \begin{algorithm}[H]
-\caption{Multiplicación de enteros grandes por divide y vencerás(Parte I)}
+\caption{Multiplicación de enteros grandes por divide y vencerás}
 \begin{algorithmic}[1]
 \Function{Multiplicacion}{x, y}
   \If{$x < 10$ \textbf{ or } $y < 10$}
@@ -130,25 +130,16 @@ T(n) = \Theta(n\log n).
   \State $m \gets \lfloor n/2 \rfloor$
   \State Dividir $x$ en $x_1, x_0$ tal que $x = x_1 \cdot 10^m + x_0$
   \State Dividir $y$ en $y_1, y_0$ tal que $y = y_1 \cdot 10^m + y_0$
+  \State $z_2 \gets \text{Multiplicacion}(x_1, y_1)$
+  \State $z_0 \gets \text{Multiplicacion}(x_0, y_0)$
+  \State $z_1 \gets \text{Multiplicacion}(x_1+x_0,\, y_1+y_0) - z_2 - z_0$
+  \State \Return $z_2 \cdot 10^{2m} + z_1 \cdot 10^m + z_0$
   \EndFunction 
 \end{algorithmic}
 \end{algorithm}
 \end{frame}
 
-% --- Diapositiva 2 ---
-\begin{frame}{Problema 2: Multiplicación de enteros grandes }
-\begin{algorithm}[H]
-\caption{Multiplicación de enteros grandes por divide y vencerás(Parte II)}
-\begin{algorithmic}[1]
-  \Function{Multiplicacion}{x, y}   % <- IMPORTANTE: abrir de nuevo
-    \State $z_2 \gets \text{Multiplicacion}(x_1, y_1)$
-    \State $z_0 \gets \text{Multiplicacion}(x_0, y_0)$
-    \State $z_1 \gets \text{Multiplicacion}(x_1+x_0,\, y_1+y_0) - z_2 - z_0$
-    \State \Return $z_2 \cdot 10^{2m} + z_1 \cdot 10^m + z_0$
-  \EndFunction                      % <- y cerrarla
-\end{algorithmic}
-\end{algorithm}
-\end{frame}
+
 
 
 \begin{frame}{Recurrencia}
@@ -229,11 +220,11 @@ Dado que $\log_2 3 \approx 1.585$, el término dominante es $n^{\log_2 3}$.
 
 %--- EN LA SIGUIENTE SECCION IRIA EL 3ER PROBLEMA-----
 
-% --- Parte I ---
-\begin{frame}{Problema 3: Multiplicación de matrices}
-\scriptsize % �� reducimos el tamaño de la letra
+% ================== Frame 1 ==================
+\begin{frame}{Problema 3: Multiplicación de matrices (Parte I)}
+\scriptsize
 \begin{algorithm}[H]
-\caption{Multiplicación de matrices por divide y vencerás(Parte I)}
+\caption{Multiplicación de matrices por divide y vencerás}
 \begin{algorithmic}[1]
   \Function{Mult\_Divide\_Conquer}{A, B}
     \State $n \gets$ tamaño de $A$
@@ -241,25 +232,39 @@ Dado que $\log_2 3 \approx 1.585$, el término dominante es $n^{\log_2 3}$.
       \State \Return $A_{11} \cdot B_{11}$
     \EndIf
     \State $(A_{11}, A_{12}, A_{21}, A_{22}) \gets \text{Split\_Matrix}(A)$
-    \State $(B_{11}, B_{12}, B_{21}, B_{22}) \gets \text{Split\_Matrix}(B)
-    $
-  \EndFunction
+    \State $(B_{11}, B_{12}, B_{21}, B_{22}) \gets \text{Split\_Matrix}(B)$
+    % Guardamos el estado aquí:
+    \algstore{multdc}
 \end{algorithmic}
 \end{algorithm}
 \end{frame}
 
-% --- Parte II ---
-\begin{frame}{Problema 3: Multiplicación de matrices}
+% ================== Frame 2 ==================
+\begin{frame}{Problema 3: Multiplicación de matrices (Parte II)}
 \scriptsize
 \begin{algorithm}[H]
-\caption{Multiplicación de matrices por divide y vencerás(Parte II)}
+\caption{Multiplicación de matrices por divide y vencerás (cont.)}
 \begin{algorithmic}[1]
-  \Function{Mult\_Divide\_Conquer}{A, B}   % <- Reabrir función
-    \State $C_{11} \gets \text{Mult\_Divide\_Conquer}(A_{11}, B_{11}) + \text{Mult\_Divide\_Conquer}(A_{12}, B_{21})$
-    \State $C_{12} \gets \text{Mult\_Divide\_Conquer}(A_{11}, B_{12}) + \text{Mult\_Divide\_Conquer}(A_{12}, B_{22})$
+    % Restauramos el estado (sigue numeración y bloques abiertos)
+    \algrestore{multdc}
+  \State $C_{11} \gets \text{Mult\_Divide\_Conquer}(A_{11}, B_{11}) + \text{Mult\_Divide\_Conquer}(A_{12}, B_{21})$
+  \State $C_{12} \gets \text{Mult\_Divide\_Conquer}(A_{11}, B_{12}) + \text{Mult\_Divide\_Conquer}(A_{12}, B_{22})$ 
+  % Volvemos a guardar para continuar en el siguiente frame
+    \algstore{multdc}
+\end{algorithmic}
+\end{algorithm}
+\end{frame}
+
+% ================== Frame 3 ==================
+\begin{frame}{Problema 3: Multiplicación de matrices (Parte III)}
+\scriptsize
+\begin{algorithm}[H]
+\caption{Multiplicación de matrices por divide y vencerás (cont.)}
+\begin{algorithmic}[1]
+    \algrestore{multdc}
+    
     \State $C_{21} \gets \text{Mult\_Divide\_Conquer}(A_{21}, B_{11}) + \text{Mult\_Divide\_Conquer}(A_{22}, B_{21})$
     \State $C_{22} \gets \text{Mult\_Divide\_Conquer}(A_{21}, B_{12}) + \text{Mult\_Divide\_Conquer}(A_{22}, B_{22})$
-
     \State Combinar $C_{11}, C_{12}, C_{21}, C_{22}$ en $C$ de tamaño $n \times n$
     \State \Return $C$
   \EndFunction
@@ -272,7 +277,7 @@ Dado que $\log_2 3 \approx 1.585$, el término dominante es $n^{\log_2 3}$.
 % --- Diapositiva 2: Funciones auxiliares ---
 \begin{frame}{Problema 3: Multiplicación de matrices}
 \begin{algorithm}[H]
-\caption{Multiplicación de matrices por divide y vencerás(Parte III)}
+\caption{Multiplicación de matrices por divide y vencerás(Parte II)}
 \begin{algorithmic}[1]
 \Function{Add\_Matrix}{A, B}
   \State $n \gets$ tamaño de $A$
@@ -284,6 +289,16 @@ Dado que $\log_2 3 \approx 1.585$, el término dominante es $n^{\log_2 3}$.
   \State \Return $C$
 \EndFunction
 
+\end{algorithmic}
+\end{algorithm}
+\end{frame}
+
+
+
+\begin{frame}{Problema 3: Multiplicación de matrices}
+\begin{algorithm}[H]
+\caption{Multiplicación de matrices por divide y vencerás(Parte II)}
+\begin{algorithmic}[1]
 \Function{Sub\_Matrix}{A, B}
   \State $n \gets$ tamaño de $A$
   \For{$i \gets 1$ hasta $n$}
@@ -311,6 +326,18 @@ Dado que $\log_2 3 \approx 1.585$, el término dominante es $n^{\log_2 3}$.
   \State $A_{22} \gets$ submatriz inferior derecha
   \State \Return $(A_{11}, A_{12}, A_{21}, A_{22})$
 \EndFunction
+\end{algorithmic}
+\end{algorithm}
+\end{frame}
+
+
+
+
+% --- Diapositiva 3: Funciones de dividir y combinar ---
+\begin{frame}{Problema 4: Multiplicacion de matrices}
+\begin{algorithm}[H]
+\caption{Dividir y combinar matrices}
+\begin{algorithmic}[1]
 
 \Function{Combine\_Matrix}{$C_{11}, C_{12}, C_{21}, C_{22}$}
   \State Formar matriz $C$ uniendo los cuatro cuadrantes
@@ -319,7 +346,6 @@ Dado que $\log_2 3 \approx 1.585$, el término dominante es $n^{\log_2 3}$.
 \end{algorithmic}
 \end{algorithm}
 \end{frame}
-
 
 
 % --- Diapositiva 1: Recurrencia ---
